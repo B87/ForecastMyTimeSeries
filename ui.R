@@ -4,48 +4,55 @@ library(dygraphs)
 source("modules/csvFileInput.R")
 source("modules/tsInput.R")
 
-shinyUI(navbarPage("Menu",
+shinyUI(navbarPage("MENU",
                    
-                tabPanel("HOME",
-                         fluidPage(theme = "bootstrap.min.css")
-                ),
+          tabPanel("HOME",fluidPage(theme = "bootstrap.min.css")),
 
-               tabPanel("FILE INPUT",
-                        fluidPage(titlePanel("I'm a title"),
-                                  sidebarLayout(
-                          sidebarPanel(
-                             helpText("Please enter only a csv with one variable,",
-                                      "you will set the time variable",
-                                     "using the frequency and start parameters"),
+          tabPanel("FILE INPUT",
+                fluidPage(
+                  sidebarLayout(
+                    sidebarPanel(
+                      h3("Upload your data file here!"),
+                      helpText("Please rembember to upload a file with two columns,
+                                the first one must be a date value and the second column must be
+                                the values of the data you want to forecast"),
                             
-                             csvFileInput("datafile", "User data (.csv format)")),
+                      csvFileInput("datafile", "User data (.csv format)")
+                    ),
                           
-                          
-                          mainPanel(DT:: dataTableOutput("table")))
-               )),
+                        
+                  mainPanel(
+                    DT:: dataTableOutput("table"))
+                  )
+                )
+            ),
 
-               tabPanel("SETUP YOUR TIME SERIE",
-                        fluidPage(
-                          sidebarPanel(
-                            #tsInput("tsInput","Set some parameters of your time serie")
-                            numericInput(
-                              inputId = "frequency",
-                              label="Set the frequency of mesurement of your dataset",
-                              value = 0),
-                            dateRangeInput(
-                              inputId = "dateRange",
-                              label = "Set the start and end dates of your serie",
-                              start = "2007-01-01",
-                              end = "2016-01-01"
+          tabPanel("SETUP YOUR TIME SERIES",
+                fluidPage(titlePanel("Please set some parameters of your time series"),
+                  sidebarPanel(
+                    selectInput("freq", label = ("Select the frequency of your maesurements"),
+                                choices = list("Monthly" = 12, "Quarterly" = 4) 
+                    ),
+                            
+                    dateInput(inputId = "startDate",
+                            label = "Set the start date of your serie",
+                            value = "2007-01-01"
                             )
-                            )
-                          ),
+                  )
+                ),
                        
-                          mainPanel(plotOutput("plotTs"))
-                        ),
+                mainPanel(plotOutput("plotTs"))
+          ),
 
-               tabPanel("THE MODEL",
-                        fluidPage("cluster")),
-               
-               tabPanel("EVALUATE THE MODEL")
+          tabPanel("ANALYSIS",
+                fluidPage(
+                  
+                )
+          ),
+          
+          tabPanel("FORECAST",
+                fluidPage(
+                  
+                )
+          )
 ))

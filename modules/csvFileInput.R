@@ -9,11 +9,11 @@ csvFileInput <- function(id, label = "CSV file") {
     fileInput(ns("file"), label),
     checkboxInput(ns("heading"), "Has heading",TRUE),
     selectInput(ns("sep"),"Separator",choices = c(Comma=",",Semicolon=";",Tab="\t",Space=" "),selected =),
-    selectInput(ns("quote"), "Quote", c(
-      "None" = "",
-      "Double quote" = "\"",
-      "Single quote" = "'"
-    ))
+    selectInput(ns("quote"), "Quote", c("None" = "",
+                                        "Double quote" = "\"",
+                                        "Single quote" = "'"
+                                        )
+                )
   )
 }
 
