@@ -4,7 +4,6 @@ library(DT)
 
 shinyServer(function(input, output,session) {
   source("modules/csvFile.R")
-  source("modules/tsGen.R")
   
   output$tabs=renderUI({
 
